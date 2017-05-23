@@ -8,8 +8,7 @@
 ### Requrimientos:
 
 * [NodeJs](https://nodejs.org/en/)
-* [Redis](https://redis.io/)
-* [Heroku](https://www.heroku.com/)
+* [Mongodb](https://www.mongodb.com/)
 
 
 * **.gitignore:** Lista de archivos ignorados por el Repositorio git.

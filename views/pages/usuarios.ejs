@@ -13,11 +13,11 @@
 
     <main>
         <div class="jumbotron">
-            <h2>Status</h2>
+            <h2>Usuarios </h2>
             <ul>
-
-                  <li></li>
-
+              <% users.forEach(function(user) { %>
+                <li><%= user.nombre %> - <%= user.codigo %> </li>
+                <% }); %>
             </ul>
         </div>
     </main>

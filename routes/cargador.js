@@ -3,6 +3,7 @@ var router = express.Router();
 var usuario = require('./cargador/usuario')
 var bicicleta = require('./cargador/bicicleta')
 var tipo = require('./cargador/tipo')
+var Tipo = require('../models/tipo')
 
 router.get("/", function(req, res){
   /*
@@ -11,14 +12,13 @@ router.get("/", function(req, res){
     endpoints : ["usuario", "bicicleta", "tipo"]
   })
   */
-  var modelos = [
-        { name: '48 V', voltage: 48 },
-        { name: '36 V', voltage: 36 },
-        { name: '24 V', voltage: 24 }
-    ]
-  res.render('pages/v_cargador',{
-    modelos: modelos
+  Tipo.find(function (err, mods) {
+  if (err) return console.error(err);
+    res.render('pages/v_cargador',{
+        modelos:mods
+    })
   })
+
 })
 
 router.use('/usuario', usuario)

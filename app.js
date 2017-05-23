@@ -8,6 +8,7 @@ var cargador = require('./routes/cargador')
 var qrinput = require('./routes/qrinput')
 var status = require('./routes/status')
 var ledcontrol = require('./routes/ledcontrol')
+var usuarios = require('./routes/usuarios')
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 // zona rest
 app.use('/cargador', cargador)
+app.use('/usuarios',usuarios)
 app.use('/qrinput', qrinput)
 app.use('/status', status)
 app.use('/ledcontrol', ledcontrol)
@@ -27,10 +29,7 @@ app.get('/', function(req, res) {
     res.render('pages/index')
 });
 // zona de interface de usuario
-app.get('/usuarios', function(req, res) {
 
-    res.render('pages/usuarios')
-})
 app.get('/bicicletas', function(req, res) {
 
     res.render('pages/bicicletas')

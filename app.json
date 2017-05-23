@@ -1,0 +1,10 @@
+{
+  "name": "carga-bici",
+  "description": "API-Rest",
+  "repository": "https://github.com/Azrrael-exe/sda-rest",
+  "image": "heroku/nodejs",
+  "addons" : [
+    "heroku-redis:hobby-dev",
+    "mongolab:sandbox"
+  ]
+}

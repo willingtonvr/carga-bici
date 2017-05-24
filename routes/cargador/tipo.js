@@ -31,7 +31,7 @@ router.get('/', function(req, res){
     else {
       res.status(200);
       res.json({
-        status : "suscess",
+        status : "success",
         payload : data
       })
     }
@@ -47,7 +47,7 @@ router.get('/:nombre', findType, function(req, res){
   else{
         res.status(200);
         res.json({
-          status : "suscess",
+          status : "success",
           payload : req.tipo
         })
       }
@@ -72,7 +72,7 @@ router.post('/', function(req, res){
     else {
       res.status(201)
       res.json({
-        status : "suscess",
+        status : "success",
         payload : nuevo_tipo,
         message : "object with name " + req.body.nombre + " created"
       })
@@ -97,7 +97,7 @@ router.delete('/:nombre', findType, function(req, res){
       else {
         res.status(200);
         res.json({
-          status : "suscess",
+          status : "success",
           payload : req.tipo,
           message : "object with id " + req.params.nombre + " deleted"
         })

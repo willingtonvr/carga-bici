@@ -58,7 +58,7 @@ router.get('/', function(req, res){
     else {
       res.status(200);
       res.json({
-        status : "suscess",
+        status : "success",
         payload : data
       })
     }
@@ -111,7 +111,7 @@ router.post('/', findUser, findType, function(req, res){
           else{
             res.status(201)
             res.json({
-              status : "suscess",
+              status : "success",
               payload : nueva_bicicleta,
               message : "object with name " + req.body.nombre + " created"
             })
@@ -144,7 +144,7 @@ router.get('/:nombre', findBicicle, function(req, res){
       else {
         res.status(200);
         res.json({
-          status : "suscess",
+          status : "success",
           payload : bicicleta
         })
       }
@@ -175,7 +175,7 @@ router.delete('/:nombre', findUser, findBicicle, function(req, res){
           else {
             res.status(200);
             res.json({
-              status : "suscess",
+              status : "success",
               payload : req.bicicleta,
               message : "item deleted"
             })

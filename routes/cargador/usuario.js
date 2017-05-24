@@ -24,7 +24,7 @@ router.get("/", function(req, res){
     else {
       res.status(200);
       res.json({
-        status : "suscess",
+        status : "success",
         payload : data
       })
     }
@@ -44,7 +44,7 @@ router.post("/", findUser, function(req, res){
       else {
         res.status(201)
         res.json({
-          status : "suscess",
+          status : "success",
           payload : nuevo_usuario,
           message : "object with id " + (req.params.codigo || req.body.codigo) + " created"
         })
@@ -83,7 +83,7 @@ router.get('/:codigo', findUser, function(req, res){
       else {
         res.status(200);
         res.json({
-          status : "suscess",
+          status : "success",
           payload : user
         })
       }
@@ -108,7 +108,7 @@ router.delete('/:codigo', findUser,function(req, res){
       else {
         res.status(200);
         res.json({
-          status : "suscess",
+          status : "success",
           payload : req.user,
           message : "object with id " + req.params.codigo + " deleted"
         })

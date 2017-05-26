@@ -1,0 +1,67 @@
+<!-- views/pages/v_cargador.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+          <h2>Estado del Hardware</h2>
+
+
+          <% estado.forEach(function(estado_hwr) {  %>
+
+          <table>
+            <tr> <td>hardware ID </td> <td> Parametro </td> <td>Valor </td> </tr>
+            <tr> <td> <%= estado_hwr.nombre; %> </td> <td> Direccion 0  </td> <td> <%= estado_hwr.device_address.msb; %> </td> </tr>
+            <tr> <td> - </td> <td> Direccion 1 </td> <td>  <%= estado_hwr.device_address.lsb %> </td> </tr>
+          </table>
+          <table>
+            <tr> <td>Slot </td> <td>Corriente (mA) </td><td>Voltaje (V) </td> <td>Potencia (mW) </td> </tr>
+            <% for(var i=0; i<estado_hwr.n_slots; i++) {%>
+            <tr> <td> <%= estado_hwr.slot[i].numero; %> Estado = <%= estado_hwr.slot[i].estado %> </td>
+                 <td> <%= estado_hwr.corriente[i].valor; %> </td>
+                 <td> <%= estado_hwr.voltaje[i].valor; %> </td>
+                 <td> <%= estado_hwr.corriente[i].valor * estado_hwr.voltaje[i].valor %>  </td>
+            </tr>
+
+            <% }; %>
+
+          </table>
+          <% }); %>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

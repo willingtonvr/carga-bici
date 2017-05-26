@@ -3,13 +3,16 @@ var router = express.Router();
 var Hardware = require('../../models/hardware')
 
 function findHardware(req, res, next){
-  Hardware.findOne({codigo : req.params.device_address || req.body.device_address}, function(err, data){
+  //Hardware.findOne({codigo : req.params.device_address || req.body.device_address}, function(err, data){
+  Hardware.findOne({nombre : req.params.nombre}, function(err, data){
+console.log(req.params);
     if(err) {
       res.status(500);
       res.json({error : 'Error looking for object'})
     }
     else {
-      req.user = data
+      req.hardware = data
+      console.log(data);
       next();
     }
   })
@@ -32,12 +35,16 @@ router.get("/", function(req, res){
 })
 
 router.post("/", findHardware, function(req, res){
+
   if(req.hardware == null){
     nuevo_hardware = new Hardware()
     nuevo_hardware.device_address = req.body.device_address
     nuevo_hardware.nombre = req.body.nombre
     nuevo_hardware.n_slots = req.body.n_slots
-    nuevo_hardware.slots = req.body.slots
+    nuevo_hardware.slot = req.body.slot
+    nuevo_hardware.voltaje = req.body.voltaje
+    nuevo_hardware.corriente = req.body.corriente
+
     nuevo_hardware.save(function (err) {
       if(err) {
         res.status(500);
@@ -63,7 +70,7 @@ router.post("/", findHardware, function(req, res){
 })
 
 router.get('/:nombre', findHardware, function(req, res){
-  if(req.user == null){
+  if(req.hardware == null){
     res.status(404);
     res.json({
       message : "Resource with parameter " + req.params.nombre + " not found",
@@ -74,7 +81,7 @@ router.get('/:nombre', findHardware, function(req, res){
     res.status(200);
     res.json({
       status : "success",
-      payload : hardware
+      payload : req.hardware
     })
   }
 })
@@ -91,7 +98,7 @@ router.delete('/:nombre', findHardware,function(req, res){
     req.hardware.remove(function (err) {
       if(err) {
         res.status(500);
-        res.json({error : 'Error saving object'})
+        res.json({error : 'Error removing object'})
       }
       else {
         res.status(200);

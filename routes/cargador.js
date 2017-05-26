@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var usuario = require('./cargador/usuario')
 var bicicleta = require('./cargador/bicicleta')
+var hardware = require('./cargador/hardware')
 var tipo = require('./cargador/tipo')
 var Tipo = require('../models/tipo')
 
@@ -24,5 +25,6 @@ router.get("/", function(req, res){
 router.use('/usuario', usuario)
 router.use('/bicicleta', bicicleta)
 router.use('/tipo', tipo)
+router.use('/hardware', hardware)
 
 module.exports = router

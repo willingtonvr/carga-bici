@@ -9,6 +9,7 @@ var qrinput = require('./routes/qrinput')
 var status = require('./routes/status')
 var ledcontrol = require('./routes/ledcontrol')
 var usuarios = require('./routes/usuarios')
+
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;

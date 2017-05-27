@@ -1,7 +1,8 @@
 <!-- views/pages/v_cargador.ejs -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
+<meta http-equiv="refresh" content="5" >
 <head>
     <% include ../partials/head %>
 </head>
@@ -23,17 +24,17 @@ tr:nth-child(even) {
 }
 </style>
 
-<body class="container">
+<body class='container'>
 
     <header>
         <% include ../partials/header %>
     </header>
 
     <main>
-        <div class="jumbotron">
+        <div class='jumbotron'>
           <h2>Estado del Hardware</h2>
 
-
+          <% var valor=''  %>
           <% estado.forEach(function(estado_hwr) {  %>
 
           <table>
@@ -43,16 +44,44 @@ tr:nth-child(even) {
           </table>
           <table>
             <tr> <td>Slot </td> <td>Corriente (mA) </td><td>Voltaje (V) </td> <td>Potencia (mW) </td> </tr>
-            <% for(var i=0; i<estado_hwr.n_slots; i++) {%>
-            <tr> <td> <%= estado_hwr.slot[i].numero; %> Estado = <%= estado_hwr.slot[i].estado %> </td>
-                 <td> <%= estado_hwr.corriente[i].valor; %> </td>
-                 <td> <%= estado_hwr.voltaje[i].valor; %> </td>
-                 <td> <%= estado_hwr.corriente[i].valor * estado_hwr.voltaje[i].valor %>  </td>
+            <% for(var i=0; i<estado_hwr.n_slots; i++) { %>
+            <tr> <td>
+              <%
+                if ( typeof estado_hwr.slot[i] =='undefined' ){
+                  valor=''
+                } else valor= estado_hwr.slot[i].numero;
+               %>
+               <%= valor; %>
+               Estado =
+               <%
+                if (typeof estado_hwr.slot[i] == 'undefined' ){
+                  valor =''
+                } else valor = estado_hwr.slot[i].estado;
+               %>
+               <%= valor; %>
+             </td>
+             <td>
+               <% if (typeof estado_hwr.corriente[i] =='undefined'){
+                     valor =''
+                   } else valor = estado_hwr.corriente[i].valor;
+                %>
+                <%= parseFloat(Math.round(valor * 100) / 100).toFixed(2); %>
+             </td>
+             <td>
+               <% if ('undefined' === typeof estado_hwr.voltaje[i]) {
+                 valor = ''
+               } else valor = estado_hwr.voltaje[i].valor;
+               %>
+                <%= parseFloat(Math.round(valor * 100) / 100).toFixed(2); %>
+
+             </td>
+
             </tr>
 
             <% }; %>
 
           </table>
+          <br>
           <% }); %>
         </div>
 

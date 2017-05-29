@@ -71,7 +71,7 @@ router.get('/:codigo', findUser, function(req, res){
   else {
     req.user.populate({
       path : 'bicicletas',
-      select : 'nombre tipo',
+      select : 'nombre tipo uses slot',
       populate : {
         path : 'tipo'
       }

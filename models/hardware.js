@@ -9,7 +9,8 @@ var hardwareSchema = mongoose.Schema({
     n_slots : Number,
     slot: [{numero: Number, estado:String}],
     voltaje: [{numero: Number, valor: Number}],
-    corriente: [{numero: Number, valor:Number}]
+    corriente: [{numero: Number, valor:Number}],
+    temperatura: [{numero: Number, valor:Number}]
   }, {versionKey: false}
 )
 

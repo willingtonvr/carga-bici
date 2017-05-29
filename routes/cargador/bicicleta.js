@@ -5,13 +5,16 @@ var Usuario = require('../../models/usuario')
 var Tipo = require('../../models/tipo')
 
 function findUser(req, res, next){
-  console.log("entro en findUser : bicicleta")
-  Usuario.findOne({codigo : req.body.usuario}, function(err, data){
+  console.log('--- buscando ---');
+  console.log(req.body);
+  Usuario.findOne({codigo : req.body.usuario.codigo}, function(err, data){
     if(err) {
       res.status(500);
-      res.json({error : 'Error looking for object'})
+      res.json({error : 'Error looking for user '})
     }
     else {
+      console.log('--- encontro ---');
+      console.log(data);
       req.user = data
       next();
     }
@@ -43,7 +46,7 @@ function findBicicle(req, res, next){
     }
     else {
       req.bicicleta = data
-      next();Type
+      next();
     }
   })
 }
@@ -68,14 +71,7 @@ router.get('/', function(req, res){
 router.post('/', findUser, findType, function(req, res){
   console.log("entro en post: bici")
   console.log(req.body)
-  if(req.body.Usuario == null){
-    res.status(404);
-    res.json({
-      message : "Resource with parameter expected Usuario" + req.body.Usuario + " not found",
-      status : "error"
-    })
-  }
-  else if(req.body.Tipo == null){
+  if(req.body.Tipo == null){
     res.status(404);
     res.json({
       message : "Resource with parameter expected Tipo " + req.body.Tipo + " not found",
@@ -83,18 +79,13 @@ router.post('/', findUser, findType, function(req, res){
     })
   }
   else {
-    console.log('AGREGAR BICI');
     nueva_bicicleta = new Bicicleta();
-    console.log('-----nueva--------');
-    console.log(nueva_bicicleta);
-    nueva_bicicleta.Tipo = req.body.Tipo;
-    nueva_bicicleta.Usuario = req.body.Usuario;
+    nueva_bicicleta.tipo = req.tipo;
+    nueva_bicicleta.usuario = req.user;
     nueva_bicicleta.nombre = req.body.nombre;
-    console.log('-----llega--------');
-    console.log(req.body);
-    console.log('-----Actualizada--------');
-    console.log(nueva_bicicleta);
-    console.log('-----fin--------');
+    nueva_bicicleta.slot = req.body.slot;
+    nueva_bicicleta.power = req.body.power;
+    nueva_bicicleta.uses = req.body.uses;
     nueva_bicicleta.save(function(err){
       if(err){
         console.log("error" + err)

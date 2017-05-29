@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang='en'>
-<meta http-equiv="refresh" content="5" >
+<meta http-equiv="refresh" content="10" >
 <head>
     <% include ../partials/head %>
 </head>
@@ -43,7 +43,7 @@ tr:nth-child(even) {
             <tr> <td> - </td> <td> Direccion 1 </td> <td>  <%= estado_hwr.device_address.lsb %> </td> </tr>
           </table>
           <table>
-            <tr> <td>Slot </td> <td>Corriente (mA) </td><td>Voltaje (V) </td> <td>Potencia (mW) </td> </tr>
+            <tr> <td>Slot </td> <td>Corriente (A) </td><td>Voltaje (V) </td> <td>Temperatura () </td> <td>Potencia (mW) </td> </tr>
             <% for(var i=0; i<estado_hwr.n_slots; i++) { %>
             <tr> <td>
               <%
@@ -75,7 +75,14 @@ tr:nth-child(even) {
                 <%= parseFloat(Math.round(valor * 100) / 100).toFixed(2); %>
 
              </td>
+             <td>
+               <% if ('undefined' === typeof estado_hwr.temperatura[i]) {
+                 valor = ''
+               } else valor = estado_hwr.temperatura[i].valor;
+               %>
+                <%= parseFloat(Math.round(valor * 100) / 100).toFixed(2); %>
 
+             </td>
             </tr>
 
             <% }; %>

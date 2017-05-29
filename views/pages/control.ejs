@@ -1,0 +1,107 @@
+<!-- views/pages/control.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<script>
+//no pasamos todos los datos
+<% estado.forEach(function(estado_req){ %>
+var device_address = <%- JSON.stringify(estado_req.device_address); %>
+var n_slots = <%- JSON.stringify(estado_req.n_slots); %>
+var hwr_name = <%- JSON.stringify(estado_req.nombre); %>
+var slot_state = <%- JSON.stringify(estado_req.slot); %>
+<% }); %>
+
+function ledcontrol(ledslot,newstate) {
+    var xhttp = new XMLHttpRequest();
+    var params={nombre:hwr_name,
+                device_address:device_address,
+                n_slots:n_slots,
+                slot:[{numero:ledslot,estado:newstate } ]
+     }
+
+    var data =JSON.stringify(params)
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("led"+ledslot).innerHTML =
+      this.responseText;
+      }
+    };
+    xhttp.open("PUT", "cargador/hardware/"+hwr_name, true);
+    xhttp.setRequestHeader("dataType", "json")
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("Content-length", data.length);
+    xhttp.setRequestHeader("Connection", "close");
+
+    xhttp.send(data);
+    }
+
+function led(numled){
+  var state=document.getElementById("led"+numled).innerHTML
+  if (state=='Activar'){
+    ledcontrol(numled,'on')
+    state='Desactivar'
+  } else {
+    ledcontrol(numled,'off')
+    state='Activar'
+  }
+  document.getElementById("led"+numled).innerHTML=state
+}
+
+</script>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+          <% var valor=''  %>
+          <% var activar='Activar' %>
+          <% estado.forEach(function(estado_hwr) {  %>
+
+          <table>
+            <tr> <td>hardware ID </td> <td> Parametro </td> <td>Valor </td> </tr>
+            <tr> <td> <%= estado_hwr.nombre; %> </td> <td> Direccion 0  </td> <td> <%= estado_hwr.device_address.msb; %> </td> </tr>
+            <tr> <td> - </td> <td> Direccion 1 </td> <td>  <%= estado_hwr.device_address.lsb %> </td> </tr>
+          </table>
+          <table>
+            <tr> <td>Slot </td> <td> Estado </td>  </tr>
+            <% for(var i=0; i<estado_hwr.n_slots; i++) { %>
+            <tr> <td>
+              <%
+                if ( typeof estado_hwr.slot[i] =='undefined' ){
+                  valor=''
+                } else valor= estado_hwr.slot[i].numero;
+               %>
+               <%= valor; %>
+              <% if(estado_hwr.slot[i].estado=='on'){
+                activar='Desactivar'
+              }else {
+                activar='Activar'
+              }%>
+             </td>
+             <td>
+               <button id="led<%= valor %>" class="btn btn-success" onclick="led(<%= valor%>)"><%= activar %></button>
+
+             </td>
+            </tr>
+
+            <% }; %>
+
+          </table>
+
+
+        </div>
+        <% }); %>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

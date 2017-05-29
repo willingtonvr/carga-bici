@@ -9,6 +9,7 @@ var qrinput = require('./routes/qrinput')
 var status = require('./routes/status')
 var ledcontrol = require('./routes/ledcontrol')
 var usuarios = require('./routes/usuarios')
+var control = require('./routes/control')
 
 var mongoose = require('mongoose');
 
@@ -26,6 +27,7 @@ app.use('/usuarios',usuarios)
 app.use('/qrinput', qrinput)
 app.use('/status', status)
 app.use('/ledcontrol', ledcontrol)
+app.use('/control', control)
 app.get('/', function(req, res) {
     res.render('pages/index')
 });
@@ -38,6 +40,7 @@ app.get('/bicicletas', function(req, res) {
 app.get('/about', function(req, res) {
     res.render('pages/about')
 })
+
 
 app.all('*', function(req, res) {
   res.redirect("/");

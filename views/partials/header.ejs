@@ -1,5 +1,21 @@
 <!-- views/partials/header.ejs -->
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <!--
@@ -16,6 +32,7 @@
             <li><a href="/cargador">Tipos cargador</a></li>
             <li><a href="/bicicletas">Bicicletas</a></li>
             <li><a href="/status">Status</a></li>
+            <li><a href="/control">Control</a></li>
             <li><a href="/about">Sobre ..</a></li>
         </ul>
 

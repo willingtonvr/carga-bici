@@ -1,7 +1,8 @@
 {
   "name": "carga-bici",
   "version": "1.0.0",
-  "description": "Example api rest, using express",
+  "description": "Servidor del cargador de bicileta",
+  "license" : "MIT",
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",

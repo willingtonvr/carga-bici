@@ -1,7 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var Hardware = require('../../models/hardware')
-
+var inherits = require('util').inherits;
+var EventEmitter = require('events').EventEmitter;
+module.exports.emitChange = emitChange;
+function emitChange() {
+  if (! (this instanceof emitChange)) return new emitChange();
+  this._started = false;
+  EventEmitter.call(this);
+}
+inherits(emitChange, EventEmitter);
+inherits(router, EventEmitter);
+emitChange.prototype.start = function start() {
+  var self = this
+  if (self._started) return
+  self._started = Date.now()
+}
+emitChange.emitir = function emitir(data) {
+  this.emit('hardware-get',data)
+}
 function findHardware(req, res, next){
   //Hardware.find({codigo : req.params.device_address || req.body.device_address}, function(err, data){
   Hardware.find({nombre : req.params.nombre || req.body.nombre }, function(err, data){
@@ -78,12 +95,14 @@ function findAndSave(req, res, next){
 }
 
 router.get("/", function(req, res){
+
   Hardware.find({},function(err, data){
     if(err) {
       res.status(500);
       res.json({error : 'Error looking for object'})
     }
     else {
+      emitChange.emitir(data)
       res.status(200);
       res.json({
         status : "success",
@@ -193,3 +212,4 @@ router.delete('/:nombre', findHardware,function(req, res){
 })
 
 module.exports = router
+module.exports.emitChange = emitChange;

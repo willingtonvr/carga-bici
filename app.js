@@ -19,7 +19,7 @@ mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost:27017/sda");
 app.use(morgan('short'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(express.static(path.join(__dirname, 'views/pages/images')))
 app.set('view engine', 'ejs');
 // zona rest
 app.use('/cargador', cargador)

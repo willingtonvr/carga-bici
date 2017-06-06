@@ -31,7 +31,7 @@ function findAndSave(req, res, next){
       //
 
       var upHardware = new Hardware(data)
-      var hwr_histoy = new Hardware_history(req.body)
+      var hwr_history = new Hardware_history(req.body)
       var newData
       var updated
       var i=0
@@ -45,14 +45,24 @@ function findAndSave(req, res, next){
         if (typeof  updated.voltaje != 'undefined' ){
           newData.voltaje[updated.voltaje.numero-1].numero=updated.voltaje.numero
           newData.voltaje[updated.voltaje.numero-1].valor=updated.voltaje.valor
+          hwr_history.variable.nombre='voltaje'
+          hwr_history.variable.slot=updated.voltaje.numero
+          hwr_history.variable.valor=updated.voltaje.valor
+
         }
         if (typeof  updated.corriente != 'undefined' ){
           newData.corriente[updated.corriente.numero-1].numero=updated.corriente.numero
           newData.corriente[updated.corriente.numero-1].valor=updated.corriente.valor
+          hwr_history.variable.nombre='corriente'
+          hwr_history.variable.slot=updated.corriente.numero
+          hwr_history.variable.valor=updated.corriente.valor
         }
         if (typeof  updated.temperatura != 'undefined' ){
           newData.temperatura[updated.temperatura.numero-1].numero=updated.temperatura.numero
           newData.temperatura[updated.temperatura.numero-1].valor=updated.temperatura.valor
+          hwr_history.variable.nombre='temperatura'
+          hwr_history.variable.slot=updated.temperatura.numero
+          hwr_history.variable.valor=updated.temperatura.numero
         }
         if (typeof  updated.slot != 'undefined' ){
           //console.log('--- to update ---');
@@ -62,6 +72,9 @@ function findAndSave(req, res, next){
           if (updated.slot[0].numero < newData.n_slots+1){
             newData.slot[updated.slot[0].numero-1].numero=updated.slot[0].numero
             newData.slot[updated.slot[0].numero-1].estado=updated.slot[0].estado
+            hwr_history.variable.nombre=updated.slot[0].estado
+            hwr_history.variable.slot=updated.slot[0].numero
+            hwr_history.variable.valor=0
           }
         }
       }else {  // llego completo
@@ -70,8 +83,8 @@ function findAndSave(req, res, next){
       }
 
       upHardware.update(newData, function (err){
-        if (err) console.log(err);
-        hwr_histoy.save(function(err){
+        if (err) console.log(err);        
+        hwr_history.save(function(err){
           if (err) {
             console.log(err);
           }

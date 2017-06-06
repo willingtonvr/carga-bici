@@ -7,9 +7,7 @@ var Hardware_historySchema = mongoose.Schema({
           lsb: Number,
           },
     updated: { type: Date, default: Date.now },
-    voltaje: {numero: Number, valor: Number},
-    corriente: {numero: Number, valor:Number},
-    temperatura: {numero: Number, valor:Number}
+    variable:{nombre: String, slot: Number, valor:Number}
   }, {versionKey: false}
 )
 

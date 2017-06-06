@@ -62,7 +62,7 @@ function findAndSave(req, res, next){
           newData.temperatura[updated.temperatura.numero-1].valor=updated.temperatura.valor
           hwr_history.variable.nombre='temperatura'
           hwr_history.variable.slot=updated.temperatura.numero
-          hwr_history.variable.valor=updated.temperatura.numero
+          hwr_history.variable.valor=updated.temperatura.valor
         }
         if (typeof  updated.slot != 'undefined' ){
           //console.log('--- to update ---');
@@ -83,7 +83,7 @@ function findAndSave(req, res, next){
       }
 
       upHardware.update(newData, function (err){
-        if (err) console.log(err);        
+        if (err) console.log(err);
         hwr_history.save(function(err){
           if (err) {
             console.log(err);

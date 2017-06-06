@@ -1,24 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Hardware = require('../../models/hardware')
-var inherits = require('util').inherits;
-var EventEmitter = require('events').EventEmitter;
-module.exports.emitChange = emitChange;
-function emitChange() {
-  if (! (this instanceof emitChange)) return new emitChange();
-  this._started = false;
-  EventEmitter.call(this);
-}
-inherits(emitChange, EventEmitter);
-inherits(router, EventEmitter);
-emitChange.prototype.start = function start() {
-  var self = this
-  if (self._started) return
-  self._started = Date.now()
-}
-emitChange.emitir = function emitir(data) {
-  this.emit('hardware-get',data)
-}
+var Hardware_history = require('../../models/hardware_history')
+
 function findHardware(req, res, next){
   //Hardware.find({codigo : req.params.device_address || req.body.device_address}, function(err, data){
   Hardware.find({nombre : req.params.nombre || req.body.nombre }, function(err, data){
@@ -47,6 +31,7 @@ function findAndSave(req, res, next){
       //
 
       var upHardware = new Hardware(data)
+      var hwr_histoy = new Hardware_history(req.body)
       var newData
       var updated
       var i=0
@@ -70,17 +55,15 @@ function findAndSave(req, res, next){
           newData.temperatura[updated.temperatura.numero-1].valor=updated.temperatura.valor
         }
         if (typeof  updated.slot != 'undefined' ){
-          console.log('--- to update ---');
-          console.log(newData);
-          console.log('---- update ---');
-          console.log(updated);
+          //console.log('--- to update ---');
+          //console.log(newData);
+          //console.log('---- update ---');
+          //console.log(updated);
           if (updated.slot[0].numero < newData.n_slots+1){
             newData.slot[updated.slot[0].numero-1].numero=updated.slot[0].numero
             newData.slot[updated.slot[0].numero-1].estado=updated.slot[0].estado
           }
         }
-
-
       }else {  // llego completo
         console.log('datos completos');
         newData = req.body
@@ -88,7 +71,13 @@ function findAndSave(req, res, next){
 
       upHardware.update(newData, function (err){
         if (err) console.log(err);
-        next();
+        hwr_histoy.save(function(err){
+          if (err) {
+            console.log(err);
+          }
+
+          next();
+        })
       })
     }
   })
@@ -212,4 +201,3 @@ router.delete('/:nombre', findHardware,function(req, res){
 })
 
 module.exports = router
-module.exports.emitChange = emitChange;

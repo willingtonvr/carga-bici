@@ -8,7 +8,6 @@ router.get("/", function(req, res){
   //console.log(hardwr);
     res.render('pages/hardware',{estado:hardwr})
 
-
   })
 })
 module.exports = router

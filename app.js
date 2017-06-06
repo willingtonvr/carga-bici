@@ -20,6 +20,7 @@ app.use(morgan('short'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'views/pages/images')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 // zona rest
 app.use('/cargador', cargador)

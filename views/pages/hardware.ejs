@@ -6,6 +6,7 @@
 <head>
     <% include ../partials/head %>
 </head>
+
 <body class='container'>
 
     <header>
@@ -25,7 +26,7 @@
             <tr> <td> - </td> <td> Direccion 1 </td> <td>  <%= estado_hwr.device_address.lsb %> </td> </tr>
           </table>
           <table>
-            <tr> <td>Slot </td> <td>Corriente (A) </td><td>Voltaje (V) </td> <td>Temperatura () </td> <td>Potencia (mW) </td> </tr>
+            <tr> <td>Slot </td> <td>Corriente (A) </td><td>Voltaje (V) </td> <td>Temperatura ( ºC ) </td>  </tr>
             <% for(var i=0; i<estado_hwr.n_slots; i++) { %>
             <tr> <td>
               <%
@@ -73,7 +74,136 @@
           <br>
           <% }); %>
         </div>
+        <br>
+        <div id="volt_history" class="jumbotron">
+            <canvas id="graf_voltaje" width="300" height="100"></canvas>
+            <script src="js/Chart.min.js"></script>
+            <script>
+            var prom1V= <%= parseFloat(estadistica.promedios.prom1V).toFixed(2) %>
+            var prom2V = <%= parseFloat(estadistica.promedios.prom2V).toFixed(2) %>
+            var prom3V = <%= parseFloat(estadistica.promedios.prom3V).toFixed(2) %>
+            var prom4V = <%= parseFloat(estadistica.promedios.prom4V).toFixed(2) %>
+            var ctx = document.getElementById("graf_voltaje");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Slot 1", "Slot 2", "Slot 3", "Slot 4"],
+                    datasets: [{
+                        label: 'Promedio de Voltaje',
+                        data: [prom1V, prom2V, prom3V, prom4V],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }],
+                    yAxisID :'Voltaje (V)'
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+            </script>
+        </div>
+        <div id="corr_history" class="jumbotron">
+            <canvas id="graf_corriente" width="300" height="100"></canvas>
+            <script>
+            var prom1C= <%= parseFloat(estadistica.promedios.prom1C).toFixed(2) %>
+            var prom2C = <%= parseFloat(estadistica.promedios.prom2C).toFixed(2) %>
+            var prom3C = <%= parseFloat(estadistica.promedios.prom3C).toFixed(2) %>
+            var prom4C = <%= parseFloat(estadistica.promedios.prom4C).toFixed(2) %>
+            var ctx = document.getElementById("graf_corriente");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Slot 1", "Slot 2", "Slot 3", "Slot 4"],
+                    datasets: [{
+                        label: 'Promedio de Corriente',
+                        data: [prom1C, prom2C, prom3C, prom4C],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+            </script>
+        </div>
+        <div id="temp_history" class="jumbotron">
+            <canvas id="graf_temp" width="300" height="100"></canvas>
 
+            <script>
+            var prom1T= <%= parseFloat(estadistica.promedios.prom1T).toFixed(2) %>
+            var prom2T = <%= parseFloat(estadistica.promedios.prom2T).toFixed(2) %>
+            var prom3T = <%= parseFloat(estadistica.promedios.prom3T).toFixed(2) %>
+            var prom4T = <%= parseFloat(estadistica.promedios.prom4T).toFixed(2) %>
+            var ctx = document.getElementById("graf_temp");
+            var myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ["Slot 1", "Slot 2", "Slot 3", "Slot 4"],
+                    datasets: [{
+                        label: 'Promedio de Temperatura',
+                        data: [prom1T, prom2T, prom3T, prom4T],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+            </script>
+        </div>
 
     </main>
 

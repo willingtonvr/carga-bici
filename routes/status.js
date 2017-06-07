@@ -31,37 +31,41 @@ router.get("/", function(req, res){
         var prom2T=0
         var prom3T=0
         var prom4T=0
-        var n=1
+
+        var nv1=1; var nc1=1; var nt1=1;
+        var nv2=1; var nc2=1; var nt2=1;
+        var nv3=1; var nc3=1; var nt3=1;
+        var nv4=1; var nc4=1; var nt4=1;
         //console.log(his);
         for (var i = 0; i < his.length; i++) {
               switch (his[i].variable.nombre) {
                 case 'voltaje':
-                    if (his[i].variable.slot ==1 ) prom1V+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==2 ) prom2V+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==3 ) prom3V+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==4 ) prom4V+= parseFloat(his[i].variable.valor)
+                    if (his[i].variable.slot ==1 ) {prom1V+= parseFloat(his[i].variable.valor);nv1++}
+                    if (his[i].variable.slot ==2 ) {prom2V+= parseFloat(his[i].variable.valor);nv2++}
+                    if (his[i].variable.slot ==3 ) {prom3V+= parseFloat(his[i].variable.valor);nv3++}
+                    if (his[i].variable.slot ==4 ) {prom4V+= parseFloat(his[i].variable.valor);nv4++}
                 break;
                 case 'temperatura':
-                    if (his[i].variable.slot ==1 ) prom1T+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==2 ) prom2T+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==3 ) prom3T+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==4 ) prom4T+= parseFloat(his[i].variable.valor)
+                    if (his[i].variable.slot ==1 ) {prom1T+= parseFloat(his[i].variable.valor);nt1++}
+                    if (his[i].variable.slot ==2 ) {prom2T+= parseFloat(his[i].variable.valor);nt2++}
+                    if (his[i].variable.slot ==3 ) {prom3T+= parseFloat(his[i].variable.valor);nt3++}
+                    if (his[i].variable.slot ==4 ) {prom4T+= parseFloat(his[i].variable.valor);nt4++}
 
                 break;
                 case 'corriente':
-                    if (his[i].variable.slot ==1 ) prom1C+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==2 ) prom2C+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==3 ) prom3C+= parseFloat(his[i].variable.valor)
-                    if (his[i].variable.slot ==4 ) prom4C+= parseFloat(his[i].variable.valor)
+                    if (his[i].variable.slot ==1 ) {prom1C+= parseFloat(his[i].variable.valor);nc1++}
+                    if (his[i].variable.slot ==2 ) {prom2C+= parseFloat(his[i].variable.valor);nc2++}
+                    if (his[i].variable.slot ==3 ) {prom3C+= parseFloat(his[i].variable.valor);nc3++}
+                    if (his[i].variable.slot ==4 ) {prom4C+= parseFloat(his[i].variable.valor);nc4++}
                 break;
               }
-              n=i+1
+
         }
 
-        prom1C/=n;prom1T/=n;prom1V/=n;
-        prom2C/=n;prom2T/=n;prom2V/=n;
-        prom3C/=n;prom3T/=n;prom3V/=n;
-        prom4C/=n;prom4T/=n;prom4V/=n;
+        prom1C/=nc1;prom1T/=nt1;prom1V/=nv1;
+        prom2C/=nc2;prom2T/=nt2;prom2V/=nv2;
+        prom3C/=nc3;prom3T/=nt3;prom3V/=nv3;
+        prom4C/=nc4;prom4T/=nt4;prom4V/=nv4;
         var proms= {
           promedios:{}
         }

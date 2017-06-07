@@ -14,7 +14,11 @@
     <main>
         <div class="jumbotron">
             <h2>Bicicletas</h2>
-            <p></p>
+            <ul>
+              <% bici.forEach(function(bicicleta) { %>
+                <li><%= bicicleta.nombre %> - Usos :<%= bicicleta.uses %> </li>
+                <% }); %>
+            </ul>
         </div>
     </main>
 

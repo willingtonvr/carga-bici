@@ -5,12 +5,11 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan')
 
 var cargador = require('./routes/cargador')
-var qrinput = require('./routes/qrinput')
 var status = require('./routes/status')
 var ledcontrol = require('./routes/ledcontrol')
 var usuarios = require('./routes/usuarios')
 var control = require('./routes/control')
-
+var bicicleta = require('./routes/bicicleta')
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -25,19 +24,16 @@ app.set('view engine', 'ejs');
 // zona rest
 app.use('/cargador', cargador)
 app.use('/usuarios',usuarios)
-app.use('/qrinput', qrinput)
 app.use('/status', status)
 app.use('/ledcontrol', ledcontrol)
 app.use('/control', control)
+app.use('/bicicletas', bicicleta)
 app.get('/', function(req, res) {
     res.render('pages/index')
 });
 // zona de interface de usuario
 
-app.get('/bicicletas', function(req, res) {
 
-    res.render('pages/bicicletas')
-})
 app.get('/about', function(req, res) {
     res.render('pages/about')
 })

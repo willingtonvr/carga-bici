@@ -92,10 +92,10 @@
                         label: 'Promedio de Voltaje',
                         data: [prom1V, prom2V, prom3V, prom4V],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(69, 172, 52, 0.8)',
+                            'rgba(23, 75, 94, 0.8)',
+                            'rgba(226, 132, 19, 0.8)',
+                            'rgba(80, 193, 228, 0.8)'
                         ],
                         borderColor: [
                             'rgba(255,99,132,1)',
@@ -107,7 +107,13 @@
                     }],
                     yAxisID :'Voltaje (V)'
                 },
-                options: {
+                options: {title:{
+                  display:true,
+                  text:'Promedio de Voltaje'
+                },
+                legend: {
+                  display: false
+                },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -135,10 +141,10 @@
                         label: 'Promedio de Corriente',
                         data: [prom1C, prom2C, prom3C, prom4C],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                          'rgba(69, 172, 52, 0.8)',
+                          'rgba(23, 75, 94, 0.8)',
+                          'rgba(226, 132, 19, 0.8)',
+                          'rgba(80, 193, 228, 0.8)'
                         ],
                         borderColor: [
                             'rgba(255,99,132,1)',
@@ -150,6 +156,13 @@
                     }]
                 },
                 options: {
+                  title:{
+                    display:true,
+                    text:'Promedio de Corriente'
+                  },
+                  legend: {
+                    display: false
+                  },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -171,17 +184,17 @@
             var prom4T = <%= parseFloat(estadistica.promedios.prom4T).toFixed(2) %>
             var ctx = document.getElementById("graf_temp");
             var myChart = new Chart(ctx, {
-                type: 'radar',
+                type: 'bar',
                 data: {
                     labels: ["Slot 1", "Slot 2", "Slot 3", "Slot 4"],
                     datasets: [{
-                        label: 'Promedio de Temperatura',
+                        label: '',
                         data: [prom1T, prom2T, prom3T, prom4T],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                          'rgba(69, 172, 52, 0.8)',
+                          'rgba(23, 75, 94, 0.8)',
+                          'rgba(226, 132, 19, 0.8)',
+                          'rgba(80, 193, 228, 0.8)'
                         ],
                         borderColor: [
                             'rgba(255,99,132,1)',
@@ -193,6 +206,13 @@
                     }]
                 },
                 options: {
+                  title:{
+                    display:true,
+                    text:'Promedio de Temperatura'
+                  },
+                  legend: {
+                    display: false
+                  },
                     scales: {
                         yAxes: [{
                             ticks: {
